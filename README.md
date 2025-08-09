@@ -22,7 +22,7 @@ The repository is organized into the following folders:
     │ ├── data/
     │ ├── docker/
     │ ├── build-images.sh
-    │ └── docker-compose.ymlss
+    │ └── docker-compose.yml 
     └── README.md
 
 
