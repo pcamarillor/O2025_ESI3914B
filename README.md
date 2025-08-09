@@ -12,6 +12,7 @@ Welcome to the repository for submitting lab code and projects for the **Big Dat
 
 The repository is organized into the following folders:
 
+    ├── collaborators/
     ├── spark/
     │ ├── INSTALL_AND_CONFIGURE_SPARK.md 
     │ ├── notebooks/
