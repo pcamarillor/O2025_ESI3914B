@@ -58,3 +58,4 @@ The repository is organized into the following folders:
     Go to the corresponing to each lab code assigment in Canvas and submit the PR URL.
 
 
+docker run -it --rm -p 8888:8888 -v /Users/pcamarillor/Code/O2025_ESI3914B/spark/notebooks:/home/jovyan/work -w /home/jovyan/work spark-base:latest
