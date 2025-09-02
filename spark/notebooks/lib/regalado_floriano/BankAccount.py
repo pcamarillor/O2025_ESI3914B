@@ -28,7 +28,7 @@ class zeroGuard:
         return self
 
     def __isub__(self, q):
-        if q <= self:
+        if q <= self.x:
             self.x -= q 
         return self
 
