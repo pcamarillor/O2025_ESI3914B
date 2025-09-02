@@ -1,46 +1,41 @@
 class BankAccount:
     def __init__(self, owner, balance=0):
+        # Dejamos todos los atributos privados para evitar modificaciones directas
         self.__owner = owner.lower()
-        self.balance = balance
+        self.__balance = balance
+        self.__operations = {
+            'deposit': self.__deposit,
+            'withdraw': self.__withdraw,
+            'balance': self.__get_balance,
+        }
 
-    def deposit(self, amount):
+    # Metodos privados
+    def __deposit(self, amount):
         if amount > 0:
-            self.balance += amount
+            self.__balance += amount
             print(f"Agregado {amount} al saldo")
         else:
             print("El monto del deposito debe ser positivo")
 
-    def withdraw(self, amount):
-        if 0 < amount <= self.balance:
-            self.balance -= amount
+    def __withdraw(self, amount):
+        if 0 < amount <= self.__balance:
+            self.__balance -= amount
             print(f"Retirado {amount} del saldo")
         else:
             print("Retiro invalido")
 
-    def get_balance(self):
-        return self.balance
-    
-    # Añadido personal para mostrar los datos extras como el nombre del dueño de la cuenta
+    def __get_balance(self):
+        return self.__balance
+
+    # Metodos publicos
     def __repr__(self):
-        return f"BankAccount -> (owner={self.__owner}, balance={self.balance})"
+        return f"BankAccount -> (owner={self.__owner}, balance={self.__balance})"
 
-# # Inicializamos la cuenta de banco con identificador de nombre y saldo por default en 0
-# bank = BankAccount("Axel")
+    def process(self, operation, *args):  # uno de los metodos para llamar cada uno de los métodos de manera publica
+        if operation in self.__operations:
+            return self.__operations[operation](*args)
+        else:
+            print(f"Operación '{operation}' no disponible")
+            return None
 
-# bank_operations = {
-#     'deposit': bank.deposit,
-#     'withdraw': bank.withdraw,
-#     'balance': bank.get_balance,
-#     'account': bank.__repr__
-# }
-
-# # Realizamos ciertas operaciones con la estructura de datos con funciones
-
-# print(bank_operations['account']())  # Iniciamos mostrando los datos de la cuenta con la funcion extra agregada.
-
-# bank_operations['deposit'](100)  # Depositamos 100
-# print(f'Balance despues del deposito: {bank_operations["balance"]()}')  # Mostramos el saldo reflejado
-
-# bank_operations['withdraw'](50)  # Retiramos 50
-# print(f'Balance despues del retiro: {bank_operations["balance"]()}')  # Mostramos el saldo reflejado
 
