@@ -1,7 +1,8 @@
-import math
-
-class Book:
-  def __init__(self, title, author):
+class BankAccount:
+  def __init__(self, balance):
+      balance = 0
+      self.update_balance = balance
+      
       self.title = title
       self.author = author
 
