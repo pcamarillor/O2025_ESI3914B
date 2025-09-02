@@ -25,14 +25,17 @@ class BankAccount():
 
     def __deposit(self, quantity:float):
         if quantity < 0.0:
-            raise ValueError("Can't deposit negative quantities.")
+            raise ValueError("Cannot deposit negative quantities.")
         self.balance += quantity
 
     def __withdraw(self, quantity:float):
         current_balance = self.balance
 
         if current_balance < quantity:
-            raise ValueError("Insuficient funds. Try again with another quantity.")
+            raise ValueError("Insufficient funds. Try again with another quantity.")
+        elif quantity < 0.0:
+            raise ValueError("Cannot withdraw negative quantities.")
+        
         self.balance -= quantity
 
     def __get_balance(self):
