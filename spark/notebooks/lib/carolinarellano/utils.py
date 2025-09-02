@@ -18,3 +18,11 @@ class BankAccount:
             print("Warning: Your account is overdrawn!")
         print(f"Current balance: {self.balance}")
         return self.balance
+
+    def process(self, operation, amount):
+        if operation.lower() == "deposit":
+            return self.deposit(amount)
+        elif operation.lower() == "withdraw":
+            return self.withdraw(amount)
+        else:
+            raise ValueError(f"Unknown operation: {operation}")
