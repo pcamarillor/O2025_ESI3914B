@@ -1,11 +1,20 @@
 class BankAccount:
     def __init__(self, balance):
-        self._balance = balance
+        self.balance = balance
 
-    def deposit(self, n):
-        self.balance += n
-    
-    def withdraw(self, n):
-        self.balance -= n
+    def deposit(self, amount):
+        self.balance += amount
+
+    def withdraw(self, amount):
+        self.balance -= amount
+
+    def process(self, action, amount):
+        actions = {
+        'deposit': self.deposit,
+        'withdraw': self.withdraw
+    }
+        actions[action](amount)
+        print(self.balance)
+
 
     
