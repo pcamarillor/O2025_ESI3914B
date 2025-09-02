@@ -1,3 +1,5 @@
+
+
 class zeroGuard:
 
     def __init__(self, x ) -> None:
@@ -37,9 +39,17 @@ class BankAccount():
         self.id = id
         self.store = zeroGuard(0)
 
+
+
     def process(self, arg, q):
+
+        def _deposit( x):
+            self.store += x 
+        def _withdraw(x ):
+            self.store -= x
+
         funcs = {
-            "deposit": (lambda x: self.store += x),
-            "withdraw": (lambda x: self.store -= x)
+            "deposit":  _deposit ,
+            "withdraw": _withdraw
         }
         return funcs[arg](q)
