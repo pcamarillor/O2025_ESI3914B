@@ -1,6 +1,6 @@
 class BankAccount:
     def __init__(self, amount):
-        self.amount = amount
+        self.__amount = amount
         self.process = {
             "deposit": self.deposit,
             "withdraw": self.withdraw,
@@ -9,11 +9,13 @@ class BankAccount:
 
 
     def deposit(self, amount):
-        self.amount += amount
+        self.__amount += amount
 
     def withdraw(self, amount):
-        self.amount -= amount
+        if amount <= self.__amount:
+            self.__amount -= amount
+        else: print("fondos insuficientes")
     
     def get_balance(self):
-        return self.amount
+        return self.__amount
     
