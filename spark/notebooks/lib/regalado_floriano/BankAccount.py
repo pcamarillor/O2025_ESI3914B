@@ -32,6 +32,9 @@ class zeroGuard:
             self.x -= q 
         return self
 
+    def __repr__(self) -> str:
+        return f"{self.x}"
+
 class BankAccount():
     """docstring for ."""
 
@@ -48,8 +51,12 @@ class BankAccount():
         def _withdraw(x ):
             self.store -= x
 
+        def _get_balance(x):
+            return self.store
+
         funcs = {
             "deposit":  _deposit ,
-            "withdraw": _withdraw
+            "withdraw": _withdraw,
+            "get_balance": _get_balance
         }
         return funcs[arg](q)
