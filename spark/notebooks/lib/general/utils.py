@@ -15,25 +15,19 @@ class MathUtils:
   @staticmethod
   def add(x, y):
       return x + y
-  
-def add2(x,y):
-    return x + y
 
 def add(*args):
-    total = 0 
+    total = 0
     for n in args:
         total += n
     return total
 
+  
 def substract(*args):
-    total = 0 
+    total = 0
     for n in args:
         total -= n
     return total
-
-def substract2 (x,y):
-    return x - y
-    
 
 class Dog:
   species = "Canis familiaris"
