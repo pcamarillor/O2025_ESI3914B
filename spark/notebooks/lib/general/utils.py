@@ -16,20 +16,17 @@ class MathUtils:
   def add(x, y):
       return x + y
 
-
 def add(*args):
     total = 0
     for n in args:
         total += n
-
     return total
 
-
+  
 def substract(*args):
     total = 0
     for n in args:
         total -= n
-
     return total
 
 class Dog:
