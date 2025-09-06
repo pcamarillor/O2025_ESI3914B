@@ -16,8 +16,6 @@ class MathUtils:
   def add(x, y):
       return x + y
 
-<<<<<<< HEAD
-=======
 def add(*args):
     total = 0
     for n in args:
@@ -31,7 +29,6 @@ def substract(*args):
         total -= n
     return total
 
->>>>>>> bf1e7da (Rename notebooks/labs/lab02/lab02_my_name.ipynb -> notebooks/labs/lab02/lab02_carloschihenseck.ipynb and discard changes on notebooks/lib/general/utils.py)
 class Dog:
   species = "Canis familiaris"
 
