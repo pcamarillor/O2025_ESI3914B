@@ -1,11 +1,17 @@
-from pyspark.sql.types import StructType,StructField,StringType,IntegerType
+from pyspark.sql.types import StructType,StructField,StringType,IntegerType, FloatType, DoubleType, BooleanType, DateType, TimestampType
 
 class SparkUtils:
     @staticmethod
     def generate_schema(columns_info) -> StructType:
-        typesdict= {
+        typesdict = {
             "string": StringType(),
-            "int": IntegerType()
+            "int": IntegerType(),
+            "integer": IntegerType(),
+            "float": FloatType(),
+            "double": DoubleType(),
+            "boolean": BooleanType(),
+            "date": DateType(),
+            "timestamp": TimestampType()
         }
 
         fields=[]
