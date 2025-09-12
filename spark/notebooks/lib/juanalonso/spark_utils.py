@@ -17,7 +17,8 @@ def to_domain(url):
 class SparkUtils:
     @staticmethod
     def generate_schema(columns_info) -> StructType:
-        types_dict = {
+        # canonical instances
+        _types = {
             "StringType": StringType(),
             "IntegerType": IntegerType(),
             "ShortType": ShortType(),
@@ -26,19 +27,36 @@ class SparkUtils:
             "BooleanType": BooleanType(),
             "DateType": DateType(),
             "TimestampType": TimestampType(),
-            "BinaryType": BinaryType()
+            "BinaryType": BinaryType(),
+        }
+
+        # common aliases → canonical keys (lowercase on the left)
+        _aliases = {
+            "string": "StringType",
+            "str": "StringType",
+            "int": "IntegerType",
+            "integer": "IntegerType",
+            "short": "ShortType",
+            "double": "DoubleType",
+            "float": "FloatType",
+            "bool": "BooleanType",
+            "boolean": "BooleanType",
+            "date": "DateType",
+            "timestamp": "TimestampType",
+            "binary": "BinaryType",
         }
 
         fields = []
-        for item in columns_info:
-            col_name, type_str = item[0], item[1]
+        for name, type_str in columns_info:
+            key = str(type_str).strip()
+            canonical = key if key in _types else _aliases.get(key.lower())
+            if canonical not in _types:
+                supported = ", ".join(sorted(_types.keys() | set(_aliases.keys())))
+                raise ValueError(
+                    f"Unsupported type '{type_str}' for column '{name}'. Supported: {supported}"
+                )
 
-            if type_str not in types_dict:
-                supported = ", ".join(sorted(types_dict.keys()))
-                raise ValueError(f"Unsupported type '{type_str}' for column '{col_name}'. "
-                                 f"Supported: {supported}")
-
-            fields.append(StructField(col_name, types_dict[type_str]))
+            fields.append(StructField(name, _types[canonical], nullable=True))
 
         return StructType(fields)
 
