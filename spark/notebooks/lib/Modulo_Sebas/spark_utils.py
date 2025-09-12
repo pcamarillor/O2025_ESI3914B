@@ -1,4 +1,4 @@
-from pyspark.sql.types import StructType, StructField, StringType, IntegerType
+from pyspark.sql.types import StructType, StructField, StringType, IntegerType, FloatType, TimestampType
 
 class SparkUtils:
     @staticmethod
@@ -6,9 +6,10 @@ class SparkUtils:
         types_dict = {
             "string": StringType(),
             "int": IntegerType(),
-            "StringType": StringType(),
-            "IntegerType": IntegerType()
+            "float": FloatType(),
+            "timestamp": TimestampType()
         }
+
         fields = []
         for name, type_str in columns_info:
             key = type_str.strip()
