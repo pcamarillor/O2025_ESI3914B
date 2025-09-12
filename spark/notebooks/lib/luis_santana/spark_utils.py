@@ -1,6 +1,6 @@
 from urllib.parse import urlparse
 from pyspark.sql.types import StructType, StringType, IntegerType, IntegerType, ShortType, DoubleType, FloatType, BooleanType, DateType, FloatType, BooleanType, DateType, TimestampType, BinaryType, ArrayType, MapType
-
+from pyspark.sql.types import StructField
 
 
 
@@ -8,4 +8,24 @@ from pyspark.sql.types import StructType, StringType, IntegerType, IntegerType, 
 class SparkUtils:
     @staticmethod
     def generate_schema(columns_info) -> StructType:
+        types_dict = {
+            "string": StringType(),
+            "int": IntegerType(),
+            "short": ShortType(),
+            "double": DoubleType(),
+            "float": FloatType(),
+            "bollean": BooleanType(),
+            "date": DateType(),
+            "timestamp": TimestampType(),
+            "bool": BinaryType()
+        }
+        fields = []
+        for col,type in columns_info:
+            spark_type = types_dict.get(type)
+            if not spark_type:
+                raise ValueError(f"Unsupported column type: {type}")
+            fields.append(StructField(col, spark_type, True)) 
+        # print(fields)
+        schema = StructType(fields)
+        return schema
         
