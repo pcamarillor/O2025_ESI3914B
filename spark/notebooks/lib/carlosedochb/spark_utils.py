@@ -14,20 +14,31 @@ def to_domain(url):
         host = host[4:]
     return host
 
-def generate_schema(cls, fields):
 
-        struct_fields = []
-        for col_name, type_str in fields:
-            if type_str not in cls.types_dict:
-                raise ValueError(f"Tipo no soportado: {type_str}")
-            struct_fields.append(
-                StructField(col_name, cls.types_dict[type_str], True)
-            )
-        return StructType(struct_fields)
 
 class SparkUtils:
     @staticmethod
     def generate_schema(columns_info) -> StructType:
-        raise NotImplementedError("Not implemented yet")
+
+        types_dict = {
+            "string": StringType(),
+            "int": IntegerType(),
+            "integer": IntegerType(),
+            "float": FloatType(),
+            "double": DoubleType(),
+            "boolean": BooleanType(),
+            "timestamp": TimestampType(),
+            "date": DateType()
+        }
+
+        fields = []
+        for col_name, col_type in columns_info:
+            col_type_lower = col_type.lower()
+            if col_type_lower not in types_dict:
+                raise ValueError(f"Unsupported type: {col_type}")
+            
+            fields.append(StructField(col_name, types_dict[col_type_lower], True))
+        
+        return StructType(fields)
 
 
