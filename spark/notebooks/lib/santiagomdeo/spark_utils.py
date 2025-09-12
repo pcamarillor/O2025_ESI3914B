@@ -22,7 +22,7 @@ def proof():
 
 type_map = {
     "string": StringType,
-    "integer": IntegerType,
+    "int": IntegerType,
     "short": ShortType,
     "double": DoubleType,
     "float": FloatType,
@@ -36,7 +36,6 @@ type_map = {
 
 def get_type(type_str: str):
     print(type_str)
-    type_str = type_str.replace("()", "")
     if type_str in type_map:
         return type_map[type_str]()  # call the constructor
     else:
