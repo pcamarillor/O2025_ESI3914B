@@ -21,7 +21,6 @@ def to_domain(url):
 class SparkUtils:
     @staticmethod
     def generate_schema(columns_info) -> StructType:
-        # Mapeo de strings a tipos de Spark
         types_dict = {
             "string": StringType(),
             "int": IntegerType(),
