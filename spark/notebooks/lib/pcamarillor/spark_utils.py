@@ -1,8 +1,5 @@
 from urllib.parse import urlparse
-from pyspark.sql.types import (
-    StructType, StructField, StringType, IntegerType, ShortType, DoubleType,
-    FloatType, BooleanType, DateType, TimestampType, BinaryType, ArrayType, MapType
-)
+from pyspark.sql.types import StructType, StringType, IntegerType, IntegerType, LongType, ShortType, DoubleType, FloatType, BooleanType, DateType, FloatType, BooleanType, DateType, TimestampType, BinaryType, StructField
 
 def parse_line(line):
     parts = line.strip().split(",")
@@ -18,31 +15,38 @@ def to_domain(url):
     return host
 
 class SparkUtils:
-    
-    types_dict = {
-        "string": StringType(),
-        "int": IntegerType(),
-        "short": ShortType(),
-        "double": DoubleType(),
-        "float": FloatType(),
-        "boolean": BooleanType(),
-        "date": DateType(),
-        "timestamp": TimestampType(),
-        "binary": BinaryType(),
-        "array": ArrayType(StringType()), # Example: ArrayType needs a base type
-        "map": MapType(StringType(), StringType()) # Example: MapType needs key/value types
-    }
-
     @staticmethod
     def generate_schema(columns_info) -> StructType:
-        schema_fields = []
-        for col_name, col_type_str in columns_info:
-            col_type_str_lower = col_type_str.lower()
-            if col_type_str_lower in SparkUtils.types_dict:
-                spark_type = SparkUtils.types_dict[col_type_str_lower]
-                # Assuming all fields are nullable for simplicity, set to True
-                schema_fields.append(StructField(col_name, spark_type, True))
-            else:
-                raise ValueError(f"Unsupported data type: {col_type_str}")
-        
-        return StructType(schema_fields)
+        """
+        Generates a list of StructField objects from a list of tuples.
+
+        Args:
+            column_info (list of tuples): Each tuple contains (column_name, data_type_string).
+
+        Returns:
+            list: A list of StructField objects.
+        """
+        # Mapping from string type names to PySpark data types
+        type_mapping = {
+            "string": StringType(),
+            "int": IntegerType(),
+            "long": LongType(),
+            "short": ShortType(),
+            "double": DoubleType(),
+            "float": FloatType(),
+            "boolean": BooleanType(),
+            "date": DateType(),
+            "timestamp": TimestampType(),
+            "binary": BinaryType(),
+        }
+
+        struct_fields = []
+        for column_info in columns_info:
+            if column_info[1] not in type_mapping:
+                raise ValueError(f"Unsupported data type: {column_info[1]}")
+
+            # Create a StructField for the column
+            struct_field = StructField(column_info[0], type_mapping[column_info[1]], True)
+            struct_fields.append(struct_field)
+
+        return StructType(struct_fields) 
