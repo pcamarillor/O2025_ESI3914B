@@ -37,7 +37,7 @@ type_map = {
 def get_type(type_str: str):
     print(type_str)
     if type_str in type_map:
-        return type_map[type_str]()  # call the constructor
+        return type_map[type_str]()  
     else:
         raise ValueError(f"Unknown type: {type_str}")
 
@@ -47,4 +47,5 @@ class SparkUtils:
         list_of_columns = []
         for x in columns_info:
             list_of_columns.append(StructField(x[0], get_type(x[1]), True))
+        return StructType(list_of_columns)
 
