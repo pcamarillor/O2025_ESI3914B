@@ -47,4 +47,5 @@ class SparkUtils:
         list_of_columns = []
         for x in columns_info:
             list_of_columns.append(StructField(x[0], get_type(x[1]), True))
+        return StructType(list_of_columns)
 
