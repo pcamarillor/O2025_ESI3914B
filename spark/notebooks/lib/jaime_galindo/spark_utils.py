@@ -4,6 +4,15 @@ from pyspark.sql.types import StructType, StructField, StringType, IntegerType, 
 class SparkUtils:
     @staticmethod
     def generate_schema(columns_info) -> StructType:
+        """
+        Generates a list of StructField objects from a list of tuples.
+
+        Args:
+            column_info (list of tuples): Each tuple contains (column_name, data_type_string).
+
+        Returns:
+            list: A list of StructField objects.
+        """
         # Diccionario de tipos soportados
         types_dict = {
             "string": StringType(),
