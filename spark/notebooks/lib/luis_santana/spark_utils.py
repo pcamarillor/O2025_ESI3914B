@@ -17,7 +17,10 @@ class SparkUtils:
             "bollean": BooleanType(),
             "date": DateType(),
             "timestamp": TimestampType(),
-            "bool": BinaryType()
+            "bool": BinaryType(),
+            "array_int": ArrayType(IntegerType()),
+            "array_string": ArrayType(StringType()),
+            "struct": StructType()
         }
         fields = []
         for col,type in columns_info:
