@@ -25,3 +25,4 @@ spark/data
 # notebooks trash
 **/.Trash-0/
 spark/notebooks/jars/
+spark/data_neo4j
