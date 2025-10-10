@@ -5,7 +5,7 @@ import time
 from datetime import datetime
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../.."))
-OUT_DIR = os.path.join(BASE_DIR, "data", "lab7_roberto")
+FULL_DIR = os.path.join(BASE_DIR, "data", "lab7_roberto")
 
 # Comenzamos creando nuestras listas con los posibles textos de nuestros logs
 SERVERS = ["server-node-1", "server-node-2", "server-node-3", "server-node-4"]
@@ -78,10 +78,10 @@ def build_lines(n: int, burst_size: int = 4, burst_prob: float = 0.30):
     return lines
 
 
-def write_file(out_dir: str, log_id: int, lines) -> str:
+def write_file(FULL_dir: str, log_id: int, lines) -> str:
     # creamos nuestros log file
-    os.makedirs(out_dir, exist_ok=True)
-    fname = os.path.join(out_dir, f"log_{log_id}_{int(time.time())}.log")
+    os.makedirs(FULL_dir, exist_ok=True)
+    fname = os.path.join(FULL_dir, f"log_{log_id}_{int(time.time())}.log")
     with open(fname, "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
     return fname
@@ -96,14 +96,14 @@ BURST_PROB = 0.35
 
 def main():
     print(
-        f"out-dir={OUT_DIR} files={FILES} lines/file={LINES_PER_FILE} "
+        f"out-dir={FULL_DIR} files={FILES} lines/file={LINES_PER_FILE} "
         f"interval={INTERVAL_SECS}s burst={BURST_SIZE} p={BURST_PROB} \n"
     )
     for i in range(1, FILES + 1):
         lines = build_lines(
             LINES_PER_FILE, burst_size=BURST_SIZE, burst_prob=BURST_PROB
         )
-        path = write_file(OUT_DIR, i, lines)
+        path = write_file(FULL_DIR, i, lines)
         print(f"({i}/{FILES}) en la ruta {path}")
         time.sleep(INTERVAL_SECS)
 
