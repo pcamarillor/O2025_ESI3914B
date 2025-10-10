@@ -39,3 +39,12 @@ class SparkUtils:
             struct_fields.append(field)
         
         return StructType(struct_fields)
+
+    @staticmethod # Method to get the schema for the logs lab07
+    def get_logs_schema():
+        return SparkUtils.generate_schema([
+            ("timestamp", "timestamp"),
+            ("log_level", "string"),
+            ("description", "string"),
+            ("server", "string")
+        ])
