@@ -22,4 +22,4 @@ while True:
     filename = f"log_{int(time.time())}.json"
     with open(os.path.join(LOG_DIR, filename), "w") as f:
         f.write(json.dumps(log) + "\n")  
-    time.sleep(5)
+    time.sleep(3)
