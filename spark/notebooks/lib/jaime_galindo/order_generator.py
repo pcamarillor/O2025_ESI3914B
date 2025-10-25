@@ -22,7 +22,7 @@ class OrderGenerator:
             discount = random.choice([0, 0.1, 0.15, 0.2])
             final_price = round(unit_price * (1 - discount), 2)
             total_amount += final_price * quantity
-            category = random.choice(["Electrónica > Audio", "Hogar > Cocina", "Deportes > Fitness", "Moda > Calzado"])
+            category = random.choice(["Electrónica > Audio", "Hogar > Cocina", "Deportes > Básquetbol", "Moda > Calzado"])
             region = random.choice(["GDL", "CDMX", "MTY", "CUN"])
             payment_method = random.choice(["MP", "Credit Card", "Debit Card", "OXXO"])
             logistics_provider = random.choice(["Estafeta", "DHL", "FedEx", "Paquetexpress"])
