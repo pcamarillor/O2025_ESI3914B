@@ -52,7 +52,7 @@ class SparkUtils:
     @staticmethod
     def writeToPostGres(df):
         def get_endpoint(jdbc_url):
-            def get_name:
+            def get_name(name):
                 df.write \
                 .format("jdbc") \
                 .option("url", jdbc_url) \
