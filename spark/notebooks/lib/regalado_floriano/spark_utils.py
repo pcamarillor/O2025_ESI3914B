@@ -56,7 +56,7 @@ class SparkUtils:
                 df.write \
                 .format("jdbc") \
                 .option("url", jdbc_url) \
-                .option("dbtable", df) \
+                .option("dbtable", name) \
                 .option("user", "postgres") \
                 .option("password", "Admin@1234") \
                 .option("driver", "org.postgresql.Driver") \
