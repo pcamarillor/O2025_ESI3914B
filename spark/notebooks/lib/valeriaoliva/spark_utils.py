@@ -15,6 +15,9 @@ class SparkUtils:
             "date": DateType(),
             "timestamp": TimestampType(),
             "binary": BinaryType(),
+            "array_int": ArrayType(IntegerType()),
+            "array_string": ArrayType(StringType()),
+            "struct": StructType()
         }
 
         fields = []
@@ -23,3 +26,4 @@ class SparkUtils:
             fields.append(StructField(column_name, spark_type, True))
 
         return StructType(fields)
+    
