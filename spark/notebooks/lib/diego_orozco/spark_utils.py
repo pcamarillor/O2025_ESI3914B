@@ -14,12 +14,25 @@ class SparkUtils:
         "timestamp": TimestampType(),
         "binary": BinaryType()
     }
+    
+    @staticmethod
+    def parse_type(data_type: str):
+        """Permite definir tipos anidados como array<double> o array<array<double>>"""
+        data_type = data_type.strip().lower()
+
+        if data_type.startswith("array<") and data_type.endswith(">"):
+            inner_type_str = data_type[len("array<"):-1]
+            inner_type = SparkUtils.parse_type(inner_type_str)
+            return ArrayType(inner_type)
+
+        if data_type in SparkUtils.types_dictionary:
+            return SparkUtils.types_dictionary[data_type]
+
+        raise ValueError(f"El tipo de dato no está definido: {data_type}")
 
     @staticmethod
     def generate_schema(columns_info) -> StructType:
-        data = []
+        fields = []
         for col_name, data_type in columns_info:
-            if data_type not in SparkUtils.types_dictionary:
-                raise ValueError(f"El tipo de dato no esta definido: {data_type}")
-            data.append(StructField(col_name, SparkUtils.types_dictionary[data_type], True))
-        return StructType(data)
+            fields.append(StructField(col_name, SparkUtils.parse_type(data_type), True))
+        return StructType(fields)
