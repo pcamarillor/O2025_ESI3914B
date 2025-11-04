@@ -39,3 +39,4 @@ class SparkUtils:
             struct_fields.append(field)
         
         return StructType(struct_fields)
+
