@@ -104,15 +104,14 @@ if __name__ == "__main__":
         bootstrap_servers=[broker],
         value_serializer=lambda x: json.dumps(x).encode('utf-8')
     )
-    i = 1
 
     try:
-        while True:
+        for i in range(100):
             message = generate_telemetry()
             producer.send(topic, message)
             print(f"Message #{i} sent: {message}")
             i += 1
-            time.sleep(2)
+            time.sleep(1)
     except KeyboardInterrupt:
         print("Kafka producer stopped by user.")
     finally:
