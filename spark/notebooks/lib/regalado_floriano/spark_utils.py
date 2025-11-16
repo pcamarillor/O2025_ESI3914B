@@ -1,9 +1,9 @@
-
 from urllib.parse import urlparse
 from pyspark.sql.types import StructField,StructType, StringType, IntegerType, IntegerType, ShortType, DoubleType, FloatType, BooleanType, DateType, FloatType, BooleanType, DateType, TimestampType, BinaryType, ArrayType, MapType
 from pyspark.sql.functions import monotonically_increasing_id
 from pyspark.sql.functions import col
-
+import random
+#from kafka import KafkaProducer
 def parse_line(line):
     parts = line.strip().split(",")
     return (parts[0], parts[1], parts[2])
