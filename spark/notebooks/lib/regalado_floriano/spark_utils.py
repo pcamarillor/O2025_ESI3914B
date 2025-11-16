@@ -20,11 +20,6 @@ def to_domain(url):
 
 
 class SparkUtils:
-    @staticmethod
-    def generate_schema(columns_info) -> StructType:
-        raise NotImplementedError("Not implemented yet")
-
-class SparkUtils:
 
     @staticmethod
     def generate_keyed_distinct_column(df):
