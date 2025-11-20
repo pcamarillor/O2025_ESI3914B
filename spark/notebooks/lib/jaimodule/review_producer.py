@@ -73,6 +73,7 @@ SOURCES = [
     "eBay"
 ]
 
+#funciones random
 def random_customer_name(country):
     return random.choice(COUNTRIES[country]["names"])
 
@@ -181,3 +182,4 @@ if __name__ == "__main__":
     finally:
         producer.flush()
         producer.close()
+
