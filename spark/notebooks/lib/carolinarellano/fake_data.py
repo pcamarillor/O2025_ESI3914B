@@ -74,14 +74,25 @@ class FakeDataGenerator:
         
         # Generate tracks
         tracks_df = self.generate_tracks(n_tracks)
-        tracks_file = self.save_data_to_csv(tracks_df, 'tracks.txt')
+        tracks_file = self.save_data_to_csv(tracks_df, 'tracks.csv')
         
         # Generate events
         events_df = self.generate_user_events(n_users, n_events, n_tracks, start_date)
-        events_file = self.save_data_to_csv(events_df, 'user_events.txt')
+        events_file = self.save_data_to_csv(events_df, 'user_events.csv')
         
         print(f"Data generation complete!")
         return tracks_df, events_df
+    
+    def generate_and_save_user_events(self, n_users: int = 200, n_events: int = 20000, 
+                                   n_tracks: int = 500, start_date: datetime = None):
+        """Generate only user event data and save to CSV file."""
+        print("Generating fake user event data...")
+        
+        events_df = self.generate_user_events(n_users, n_events, n_tracks, start_date)
+        events_file = self.save_data_to_csv(events_df, 'user_events.csv')
+        
+        print(f"User event data generation complete!")
+        return events_df
 
 
 def main():
