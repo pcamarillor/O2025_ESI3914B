@@ -60,10 +60,9 @@ class FakeDataGenerator:
         """Save DataFrame to CSV file in the data directory."""
         # If user passed a .csv filename, convert to .txt since we save pipe-separated text
         if filename.lower().endswith('.csv'):
-            filename = filename[:-4] + '.txt'
+            filename = filename[:-4] + '.csv'
         file_path = self.data_dir / filename
-        # Save using pipe '|' as separator to create a plain text, pipe-delimited file
-        dataframe.to_csv(file_path, index=False, sep='|')
+        dataframe.to_csv(file_path, index=False, sep=',')
         print(f"Saved {filename} with {len(dataframe)} rows to {file_path}")
         return file_path
     
@@ -82,17 +81,6 @@ class FakeDataGenerator:
         
         print(f"Data generation complete!")
         return tracks_df, events_df
-    
-    def generate_and_save_user_events(self, n_users: int = 200, n_events: int = 20000, 
-                                   n_tracks: int = 500, start_date: datetime = None):
-        """Generate only user event data and save to CSV file."""
-        print("Generating fake user event data...")
-        
-        events_df = self.generate_user_events(n_users, n_events, n_tracks, start_date)
-        events_file = self.save_data_to_csv(events_df, 'user_events.csv')
-        
-        print(f"User event data generation complete!")
-        return events_df
 
 
 def main():
