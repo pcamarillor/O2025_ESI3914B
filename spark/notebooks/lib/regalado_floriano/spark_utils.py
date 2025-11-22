@@ -30,6 +30,14 @@ class SparkUtils:
         return get
 
     @staticmethod
+    def generate_streamed_keyed_distinct_column(df):
+        """curried for ease of use"""
+        def get(col_name):
+            dist = df.select(col(col_name)).distinct()
+            return dist.withColumn('id', monotonically_increasing_id())
+        return get
+
+    @staticmethod
     def replace_column_for_key(main_df):
         def get_map_df(key_val_df):
             def get_cokey(name):
