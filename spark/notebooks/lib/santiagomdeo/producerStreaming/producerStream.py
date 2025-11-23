@@ -5,6 +5,7 @@ import sys
 import json
 import time
 import requests
+from datetime import datetime
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
 from kafka import KafkaProducer
@@ -50,6 +51,20 @@ def crawl(seed_url, max_depth, broker, topic, verified_domains_file="verified_do
         print(f"Visiting {current_url} (depth {depth})")
 
 
+        # ---- HEALTHY ---------------------------------------------------------
+        metrics = {
+            "timestamp": time.time(),
+            "current_url": current_url,
+            "depth": depth,
+            "visited_count": len(visited),
+            "queue_size": len(to_visit),
+            "errors_count": len(rejected_domains)
+        }
+        producer.send("crawler-metrics", value=metrics)
+        #print(f"[METRICS] Sent: {metrics}")
+        # ----------------------------------------------------------------------
+
+
         try:
             response = requests.get(current_url, timeout=5)
             if response.status_code != 200:
@@ -82,7 +97,8 @@ def crawl(seed_url, max_depth, broker, topic, verified_domains_file="verified_do
             message = {
                 "from": current_url,
                 "to": next_url,
-                "depth": depth
+                "depth": depth,
+                "timestamp": datetime.utcnow().isoformat()
             }
             producer.send(topic, value=message)
             print(f"Sent to Kafka: {message}")
