@@ -35,7 +35,7 @@ def crawl(seed_url, max_depth, broker, topic, verified_domains_file="verified_do
     }
 
 
-        # CSV buffering system
+     # CSV variables to not make 3000 csv files
     buffer = []
     batch_counter = 1
     save_directory = "/data/metrics_health_output"
@@ -89,7 +89,7 @@ def crawl(seed_url, max_depth, broker, topic, verified_domains_file="verified_do
             if "iteso.mx" in domain:
                 verified_domains.add(domain)
 
-            # Auto-reject list
+            # Auto-reject list this grows exponentially with the original code, but i dont see much way to correct it 
             elif any(bad in domain for bad in always_reject):
                 rejected_domains.add(domain)
                 continue
@@ -98,7 +98,7 @@ def crawl(seed_url, max_depth, broker, topic, verified_domains_file="verified_do
             elif domain in rejected_domains:
                 continue
 
-            # Ask user for unverified domains
+            # Ask me for unverified domains slwoest part
             elif domain not in verified_domains:
                 choice = input(f" Domain {domain} not verified. Allow crawl? [y/n]: ").strip().lower()
                 if choice == "y":
@@ -111,6 +111,7 @@ def crawl(seed_url, max_depth, broker, topic, verified_domains_file="verified_do
             if next_url not in visited and depth + 1 <= max_depth:
                 to_visit.append((next_url, depth + 1))
 
+                # if we here, then this shit works
                 # ------------------------------------------------------------
                 # SEND CONNECTION TO KAFKA (every link)
 
