@@ -1,9 +1,9 @@
-
 from urllib.parse import urlparse
 from pyspark.sql.types import StructField,StructType, StringType, IntegerType, IntegerType, ShortType, DoubleType, FloatType, BooleanType, DateType, FloatType, BooleanType, DateType, TimestampType, BinaryType, ArrayType, MapType
 from pyspark.sql.functions import monotonically_increasing_id
 from pyspark.sql.functions import col
-
+import random
+#from kafka import KafkaProducer
 def parse_line(line):
     parts = line.strip().split(",")
     return (parts[0], parts[1], parts[2])
@@ -20,14 +20,17 @@ def to_domain(url):
 
 
 class SparkUtils:
-    @staticmethod
-    def generate_schema(columns_info) -> StructType:
-        raise NotImplementedError("Not implemented yet")
-
-class SparkUtils:
 
     @staticmethod
     def generate_keyed_distinct_column(df):
+        """curried for ease of use"""
+        def get(col_name):
+            dist = df.select(col(col_name)).distinct()
+            return dist.withColumn('id', monotonically_increasing_id())
+        return get
+
+    @staticmethod
+    def generate_streamed_keyed_distinct_column(df):
         """curried for ease of use"""
         def get(col_name):
             dist = df.select(col(col_name)).distinct()
